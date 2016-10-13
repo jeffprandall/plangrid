@@ -1,0 +1,18 @@
+{
+  "name": "plangrid-js",
+  "version": "0.0.1",
+  "description": "Polls PlanGrid api and stores data locally in a database",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.15.1",
+    "moment-timezone": "^0.5.5",
+    "sequelize": "^3.24.3",
+    "tedious": "^1.14.2",
+    "winston": "^2.2.0"
+  }
+}

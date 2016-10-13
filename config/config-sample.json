@@ -1,0 +1,35 @@
+{
+	"plangrid": {
+		"url": "io.plangrid.com",
+		"key": "PLANGRID API KEY HERE",
+		"headers": { "Accept": "application/vnd.plangrid+json; version=1" }
+	},
+	// Microsoft SQL Connection Example
+	"development": {
+	    "username": "SQL USERNAME",
+	    "password": "SQL PASSWORD",
+	    "database": "Plangrid-dev",
+	    "host": "SQL HOSTNAME/IP ADDRESS",
+	    "port": 1433,
+	    "dialect": "mssql",
+	    "instanceName": "INSTANCENAME"
+	},
+	"production": {
+	    "username": "SQL USERNAME",
+	    "password": "SQL PASSWORD",
+	    "database": "Plangrid",
+	    "host": "SQL HOSTNAME/IP ADDRESS",
+	    "dialect": "mssql",
+	    "port": 1433,
+	    "instanceName": "INSTANCENAME",
+	    "logging": false
+	}
+	// Postgres Connection Example
+	// "qa": {
+	//     "username": "SQL USERNAME",
+	//     "password": "SQL PASSWORD",
+	//     "database": "Plangrid",
+	//     "host": "SQl HOSTNAME/IP ADDRESS",
+	//     "dialect": "postgres"
+	// },
+}

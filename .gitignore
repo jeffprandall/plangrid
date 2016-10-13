@@ -1,0 +1,14 @@
+# Generics
+views/.DS_Store
+.DS_Store
+.eslintrc.js
+
+# Log Files
+*.log
+*.logs
+
+# App Specific
+config/config.json
+
+# Modules
+node_modules/
