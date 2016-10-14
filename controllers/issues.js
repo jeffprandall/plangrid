@@ -5,6 +5,8 @@ const moment = require('moment');
 const tz = require('moment-timezone');
 const Logger = require('../config/logger');
 
+const RATE_LIMIT = 1000;
+
 // create new issue  -- overwrite old by default
 function createIssue(project, issue) {
 
@@ -77,11 +79,6 @@ function createIssue(project, issue) {
 					});
 			}
 		})
-		.catch((err) => {
-			Logger.error(project, issue.uid, err);
-			Logger.close();
-			return err;
-		});
 }
 
 // iterate over list of issues
@@ -94,7 +91,7 @@ function iterateIssueList(project_uid, issues) {
 }
 
 // get issues with a 1 second delay
-function getIssues(project) {
+function getIssues(projectId) {
 	return new Promise((resolve, reject) => {
 
 		let uid = project.uid;
@@ -137,36 +134,47 @@ function getIssues(project) {
 }
 
 // iterate over projects to get list of all associated issues
-function iterateProjectList(projects) {
+const iterateProjectList = (projectIds) => {
+
+	const issuePromises = projectIds.map(id => new Promise((resolve, reject) => {
+
+		setTimeout(() => {
+			console.log('geting project for', id);
+			resolve({ id: id, issues: [] });
+		}, RATE_LIMIT);
+
+	}));
+
+	return Promise.all(issuePromises);
 	
-	let promise = Promise.resolve();
+	// let promise = Promise.resolve();
 
-	projects.forEach(project => {
-		promise = promise.then(() => {
-			setTimeout(() => getIssues(project),1000);
-		});
-	});
+	// projectIds.forEach(id => {
+	// 	promise = promise.then(() => {
+	// 		setTimeout(() => {
+	// 			console.log('geting project for', id);
+	// 			return { id: id, issues: [] };
+	// 		}, 1000);
+	// 		// setTimeout(() => getIssues(id),1000);
+	// 	});
+	// });
 
-	return promise;
+	// return promise;
 }
 
 // get a list of all the projects
-function getProjectIds() {
-	return models.Project.findAll()
-	.then((projects) => projects)
+const getProjectIds = () => models.Project.findAll()
+	.then(projects => projects.map(p => p.dataValues.uid));
+
+getProjectIds()
+	.then(projectIds => iterateProjectList(projectIds))
+	.then(issues => {
+		console.log('here', issues);
+	})
+	// .then(getIssues)
+	// .then((results) => console.log(results))
 	.catch((err) => {
 		Logger.error(err);
 		Logger.close();
 		return err;
 	});
-}
-
-getProjectIds()
-.then(iterateProjectList)
-.then(getIssues)
-.then((results) => console.log(results))
-.catch((err) => {
-	Logger.error(err);
-	Logger.close();
-	return err;
-});
