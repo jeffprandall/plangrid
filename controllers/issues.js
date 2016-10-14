@@ -4,6 +4,10 @@ const PG_config = require('../config/config.json');
 const moment = require('moment');
 const tz = require('moment-timezone');
 const Logger = require('../config/logger');
+const Bottleneck = require("bottleneck");
+
+// Set the Rate Limit for the API - 4 per second
+const limiter = new Bottleneck(4, 1000);
 
 // create new issue  -- overwrite old by default
 function createIssue(project, issue) {
@@ -45,11 +49,6 @@ function createIssue(project, issue) {
 						createdAt: now
 					})
 					.then((issue) => issue)
-					.catch((err) => {
-						Logger.error(err);
-						Logger.close();
-						return err;
-					});
 			} else {
 			
 			// Issue found so need to update
@@ -70,17 +69,7 @@ function createIssue(project, issue) {
 					},
 					{ where: { uid: issue.uid }})
 					.then((issue) => issue)
-					.catch((err) => {
-						Logger.error(err);
-						Logger.close();
-						return err;
-					});
 			}
-		})
-		.catch((err) => {
-			Logger.error(project, issue.uid, err);
-			Logger.close();
-			return err;
 		});
 }
 
@@ -96,7 +85,8 @@ function iterateIssueList(project_uid, issues) {
 // get issues with a 1 second delay
 function getIssues(project) {
 	return new Promise((resolve, reject) => {
-
+		
+		console.log(`getting issues for project ${project.uid} `)
 		let uid = project.uid;
 
 		let options = {
@@ -127,9 +117,8 @@ function getIssues(project) {
 		});
 
 		req.on('error', (e) => {
-			Logger.error(e.message);
-			Logger.close();
-		 	reject(e);
+		  console.error(`problem with request: ${e.message}`);
+		  reject(e);
 		});
 
 		req.end();
@@ -137,34 +126,23 @@ function getIssues(project) {
 }
 
 // iterate over projects to get list of all associated issues
-function iterateProjectList(projects) {
-	
-	let promise = Promise.resolve();
+function iterateProjectList(projects) {	
 
-	projects.forEach(project => {
-		promise = promise.then(() => {
-			setTimeout(() => getIssues(project),1000);
+	const promiseIssues = new Promise((resolve, reject) => {
+		projects.map(p => {
+			console.log(`${p.uid} is running`)
+			limiter.schedule(getIssues, p)
 		});
 	});
-
-	return promise;
+	
+	return Promise.all(promiseIssues);
 }
 
-// get a list of all the projects
-function getProjectIds() {
-	return models.Project.findAll()
-	.then((projects) => projects)
-	.catch((err) => {
-		Logger.error(err);
-		Logger.close();
-		return err;
-	});
-}
+const getProjectIds = () => models.Project.findAll();
 
 getProjectIds()
-.then(iterateProjectList)
-.then(getIssues)
-.then((results) => console.log(results))
+.then(projects => iterateProjectList(projects))
+.then(issues => createIssue(issues))
 .catch((err) => {
 	Logger.error(err);
 	Logger.close();

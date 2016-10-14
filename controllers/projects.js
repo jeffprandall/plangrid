@@ -67,6 +67,8 @@ function getProjectsFromPlanGrid() {
 	})
 }
 
+
 getProjectsFromPlanGrid()
-  .then(iterateProjectlist)
-  .catch(e => { console.error(e)});
+.then(projects => iterateProjectlist(projects))
+.then(result => console.log(result))
+.catch(err => console.log(err))
