@@ -5,6 +5,7 @@ const moment = require('moment');
 const tz = require('moment-timezone');
 const Logger = require('../config/logger');
 const Bottleneck = require("bottleneck");
+require("nodejs-dashboard");
 
 // Set the Rate Limit for the API - 4 per second
 const limiter = new Bottleneck(4, 1000);
@@ -130,7 +131,7 @@ function iterateProjectList(projects) {
 
 	const promiseIssues = new Promise((resolve, reject) => {
 		projects.map(p => {
-			console.log(`${p.uid} is running`)
+			console.log(`${p.uid} is moving through the map`)
 			limiter.schedule(getIssues, p)
 		});
 	});
