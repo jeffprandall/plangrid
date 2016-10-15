@@ -1,5 +1,6 @@
-## PlanGrid data to local Microsoft SQL database
+## PlanGrid data to local database
 
+Using Postgres for local development testing and Microsoft SQL in production.
 
 
 ## Prerequisites
@@ -21,26 +22,24 @@ Update the json file in config/config-sample.json with your appropriate informat
 {
 	"plangrid": {
 		"url": "io.plangrid.com",
-		"key": "PLANGRID API KEY HERE",
+		"key": "<YOUR PLANGRID API KEY HERE>",
 		"headers": { "Accept": "application/vnd.plangrid+json; version=1" }
 	},
 	"development": {
-	    "username": "SQL USERNAME",
-	    "password": "SQL PASSWORD",
+	    "username": "<USERNAME>",
+	    "password": "<PASSWORD>",
 	    "database": "Plangrid-dev",
-	    "host": "SQL HOSTNAME/IP ADDRESS",
-	    "port": 1433,
-	    "dialect": "mssql",
-	    "instanceName": "INSTANCENAME"
+	    "host": "localhost",
+	    "dialect": "postgres"
 	},
 	"production": {
-	    "username": "SQL USERNAME",
-	    "password": "SQL PASSWORD",
+	    "username": "<SQL USERNAME>",
+	    "password": "<SQL PASSWORD>",
 	    "database": "Plangrid",
-	    "host": "SQL HOSTNAME/IP ADDRESS",
+	    "host": "<SQL HOST NAME>",
 	    "dialect": "mssql",
 	    "port": 1433,
-	    "instanceName": "INSTANCENAME",
+	    "instanceName": "<INSTANCE NAME>",
 	    "logging": false
 	}
 }

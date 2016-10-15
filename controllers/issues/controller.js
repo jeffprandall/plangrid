@@ -1,14 +1,11 @@
-const models  = require('../models');
+const models  = require('../../models');
 const https = require('https');
-const PG_config = require('../config/config.json');
+const PG_config = require('../../config/config.json');
 const moment = require('moment');
 const tz = require('moment-timezone');
-const Logger = require('../config/logger');
-const Bottleneck = require("bottleneck");
-require("nodejs-dashboard");
+const Logger = require('../../config/logger');
 
-// Set the Rate Limit for the API - 4 per second
-const limiter = new Bottleneck(4, 1000);
+const RATE_LIMIT = 2000;
 
 // create new issue  -- overwrite old by default
 function createIssue(project, issue) {
@@ -50,6 +47,11 @@ function createIssue(project, issue) {
 						createdAt: now
 					})
 					.then((issue) => issue)
+					.catch((err) => {
+						Logger.error(err);
+						Logger.close();
+						return err;
+					});
 			} else {
 			
 			// Issue found so need to update
@@ -70,12 +72,17 @@ function createIssue(project, issue) {
 					},
 					{ where: { uid: issue.uid }})
 					.then((issue) => issue)
+					.catch((err) => {
+						Logger.error(err);
+						Logger.close();
+						return err;
+					});
 			}
-		});
+		})
 }
 
 // iterate over list of issues
-function iterateIssueList(project_uid, issues) {
+const iterateIssueList = (project_uid, issues) => {
 	let data = issues.data;
 
 	// filter out deleted issues
@@ -84,11 +91,13 @@ function iterateIssueList(project_uid, issues) {
 }
 
 // get issues with a 1 second delay
-function getIssues(project) {
+const getIssues = (projectId) => {
+	let d = new Date();
+	console.log('getting issues ', projectId, d);
+
 	return new Promise((resolve, reject) => {
-		
-		console.log(`getting issues for project ${project.uid} `)
-		let uid = project.uid;
+
+		let uid = projectId;
 
 		let options = {
 			hostname: PG_config.plangrid.url,
@@ -118,34 +127,39 @@ function getIssues(project) {
 		});
 
 		req.on('error', (e) => {
-		  console.error(`problem with request: ${e.message}`);
-		  reject(e);
+			Logger.error(e.message);
+			Logger.close();
+		 	reject(e);
 		});
 
 		req.end();
 	})
 }
 
-// iterate over projects to get list of all associated issues
-function iterateProjectList(projects) {	
+// iterate over projects to get a list of all associated issues
+const iterateProjectsList = (projectIds) => {
 
-	const promiseIssues = new Promise((resolve, reject) => {
-		projects.map(p => {
-			console.log(`${p.uid} is moving through the map`)
-			limiter.schedule(getIssues, p)
-		});
-	});
-	
-	return Promise.all(promiseIssues);
+	const issuePromises = projectIds.map(id => new Promise((resolve, reject) => {
+
+		setTimeout(() => {
+			console.log('getting issues for project ', id);
+			resolve (getIssues(id));
+		}, RATE_LIMIT);
+
+	}));
+
+	return Promise.all(issuePromises);
 }
 
-const getProjectIds = () => models.Project.findAll();
+// get a list of all the projects and return their uid
+const getProjectIds = () => models.Project.findAll()
+	.then(projects => projects.map(p => p.dataValues.uid));
 
 getProjectIds()
-.then(projects => iterateProjectList(projects))
-.then(issues => createIssue(issues))
-.catch((err) => {
-	Logger.error(err);
-	Logger.close();
-	return err;
-});
+	.then(projectIds => iterateProjectsList(projectIds))
+	.then(issues => { Logger.log(issues);})
+	.catch((err) => {
+		Logger.error(err);
+		Logger.close();
+		return err;
+	});

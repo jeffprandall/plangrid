@@ -1,9 +1,9 @@
-const models  = require('../models');
+const models  = require('../../models');
 const https = require('https');
-const PG_config = require('../config/config.json');
+const PG_config = require('../../config/config.json');
 const moment = require('moment');
 const tz = require('moment-timezone');
-const Logger = require('../config/logger');
+const Logger = require('../../config/logger');
 
 // save to database
 function createProject(project) {
@@ -30,13 +30,13 @@ function createProject(project) {
 }
 
 // iterator over list
-function iterateProjectlist(projects) {
+const iterateProjectlist = (projects) => {
 	let data = projects.data;
 	data.forEach(project => createProject(project));
 }
 
 // get projects
-function getProjectsFromPlanGrid() {
+const getProjectsFromPlanGrid = () => {
 
 	return new Promise((resolve, reject) => {
 		let options = {
@@ -66,7 +66,6 @@ function getProjectsFromPlanGrid() {
 		req.end();
 	})
 }
-
 
 getProjectsFromPlanGrid()
 .then(projects => iterateProjectlist(projects))

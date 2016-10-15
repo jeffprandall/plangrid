@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bottleneck": "^1.14.0",
     "moment": "^2.15.1",
     "moment-timezone": "^0.5.5",
     "pg": "^6.1.0",
