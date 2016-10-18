@@ -4,11 +4,17 @@
   "description": "Polls PlanGrid api and stores data locally in a database",
   "main": "app.js",
   "scripts": {
-    "test": "nsp check"
+    "test": "npm run test-unit && npm run test-integration && npm run test-packages",
+    "test-unit": "./node_modules/.bin/_mocha tests/unit/*.test.js",
+    "test-integration": "./node_modules/.bin/_mocha tests/integration/*.test.js",
+    "test-packages": "nsp check"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-mocha": "^3.0.1",
+    "gulp-util": "^3.0.7",
     "moment": "^2.15.1",
     "moment-timezone": "^0.5.5",
     "pg": "^6.1.0",
@@ -17,6 +23,9 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
+    "expect": "^1.20.2",
+    "gulp-nsp": "^2.4.2",
+    "mocha": "^3.1.2",
     "nsp": "^2.6.2"
   }
 }
