@@ -4,9 +4,9 @@
   "description": "Polls PlanGrid api and stores data locally in a database",
   "main": "app.js",
   "scripts": {
-    "test": "npm run test-unit && npm run test-integration && npm run test-packages",
-    "test-unit": "./node_modules/.bin/_mocha tests/unit/*.test.js",
-    "test-integration": "./node_modules/.bin/_mocha tests/integration/*.test.js",
+    "test": "npm run test-unit",
+    "test-unit": "mocha test/unit/**.test.js --reporter spec",
+    "test-integration": "mocha test/integration/*.test.js  --reporter spec",
     "test-packages": "nsp check"
   },
   "author": "",
@@ -19,11 +19,11 @@
     "moment-timezone": "^0.5.5",
     "pg": "^6.1.0",
     "sequelize": "^3.24.3",
-    "tedious": "^1.14.2",
+    "tedious": "^1.14.0",
     "winston": "^2.2.0"
   },
   "devDependencies": {
-    "expect": "^1.20.2",
+    "chai": "^3.5.0",
     "gulp-nsp": "^2.4.2",
     "mocha": "^3.1.2",
     "nsp": "^2.6.2"
