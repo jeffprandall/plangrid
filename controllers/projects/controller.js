@@ -56,7 +56,7 @@ const getProjectsFromPlanGrid = () => {
 		});
 
 		req.on('error', (e) => {
-		  console.error(`problem with request: ${e.message}`);
+		  Logger.error(`problem with request: ${e.message}`);
 		  reject(e);
 		});
 
@@ -68,8 +68,8 @@ const getProjectsFromPlanGrid = () => {
 exports.getProjects = () => {
 	getProjectsFromPlanGrid()
 	.then(projects => iterateProjectlist(projects))
-	.then(result => console.log(result))
-	.catch(err => console.log(err))
+	.then(result => Logger.info(result))
+	.catch(err => Logger.error(err))
 }
 
 // Create a single Project
