@@ -8,11 +8,12 @@ Using Postgres for local development testing and Microsoft SQL in production.
 * nodejs > 6.0
 * ```npm install -g tedious sequelize sequelize-cli```
 
+### Setup the Postgres Development database
+1. Create a new Postgres database on your local machine called Plangrid-dev and make the Owner the current user.
 
-### Setup the database(s)
-1. Create a new database on your MSSQL called Plangrid
-2. (optional) Create another database on your MSSQL called Plangrid-dev if you want to have something to test against.
-3. Create a new SQL user and make it the dbo for both databases.
+### Setup the MSSQL Production database
+1. Create a new database on your MSSQL Server called Plangrid
+2. Create a new SQL user and make it the dbo for both databases.
 
 ### Update the config file
 

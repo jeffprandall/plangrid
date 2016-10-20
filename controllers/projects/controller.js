@@ -7,7 +7,7 @@ const Logger = require('../../config/logger');
 
 // save to database
 function createProject(project) {
-	
+
 	let now = moment();
 	now.tz('America/Los_Angeles').format();
 	let pid = project.name.substring(0, 5) // adjust according to your needs
@@ -22,10 +22,7 @@ function createProject(project) {
 		},
 	})
 	.spread((project, created) => {
-		console.info(project.get({
-			plain: true
-		}))
-		console.info(created)
+		return project;
 	})
 }
 
@@ -67,7 +64,13 @@ const getProjectsFromPlanGrid = () => {
 	})
 }
 
-getProjectsFromPlanGrid()
-.then(projects => iterateProjectlist(projects))
-.then(result => console.log(result))
-.catch(err => console.log(err))
+// Main function to poll the API and create projects
+exports.getProjects = () => {
+	getProjectsFromPlanGrid()
+	.then(projects => iterateProjectlist(projects))
+	.then(result => console.log(result))
+	.catch(err => console.log(err))
+}
+
+// Create a single Project
+exports.createProject = createProject;

@@ -83,6 +83,7 @@ function createIssue(project, issue) {
 
 // iterate over list of issues
 const iterateIssueList = (project_uid, issues) => {
+	
 	let data = issues.data;
 
 	// filter out deleted issues
@@ -92,9 +93,7 @@ const iterateIssueList = (project_uid, issues) => {
 
 // get issues with a 1 second delay
 const getIssues = (projectId) => {
-	let d = new Date();
-	console.log('getting issues ', projectId, d);
-
+	
 	return new Promise((resolve, reject) => {
 
 		let uid = projectId;
@@ -114,7 +113,7 @@ const getIssues = (projectId) => {
 			res.on('data', (chunk) => { data += chunk });
 			res.on('end', () => {
 				let jsonIssues = JSON.parse(data)
-				
+
 				// check if there are any issues
 				if (Object.keys(jsonIssues.data).length === 0) {
 					resolve(uid, jsonIssues);
@@ -142,7 +141,6 @@ const iterateProjectsList = (projectIds) => {
 	const issuePromises = projectIds.map(id => new Promise((resolve, reject) => {
 
 		setTimeout(() => {
-			console.log('getting issues for project ', id);
 			resolve (getIssues(id));
 		}, RATE_LIMIT);
 
@@ -155,11 +153,15 @@ const iterateProjectsList = (projectIds) => {
 const getProjectIds = () => models.Project.findAll()
 	.then(projects => projects.map(p => p.dataValues.uid));
 
-getProjectIds()
-	.then(projectIds => iterateProjectsList(projectIds))
-	.then(issues => { Logger.log(issues);})
-	.catch((err) => {
-		Logger.error(err);
-		Logger.close();
-		return err;
-	});
+
+// Main function to get all the issues
+exports.getIssues = () => {
+	getProjectIds()
+		.then(projectIds => iterateProjectsList(projectIds))
+		.then(issues => { Logger.log(issues);})
+		.catch((err) => {
+			Logger.error(err);
+			Logger.close();
+			return err;
+		});
+}
