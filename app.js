@@ -1,5 +1,5 @@
 const schedule = require('node-schedule');
-const Logger = require('config/logger');
+const Logger = require('./config/logger');
 
 // Reference controllers
 const Projects = require('./controllers/projects/controller');
@@ -7,7 +7,7 @@ const Issues = require('./controllers/issues/controller');
 
 // Project Schedule to poll the API
 let pRule = new schedule.RecurrenceRule();
-pRule.minute = 57;  // Runs 57 minutes after every hour
+pRule.minute = 48;  // Runs 57 minutes after every hour
 
 var pj = schedule.scheduleJob(pRule, () => {
 	let now = new Date();
@@ -17,7 +17,7 @@ var pj = schedule.scheduleJob(pRule, () => {
 
 // Issue Schedule to poll the API
 let iRule = new schedule.RecurrenceRule();
-iRule.minute = 58;  // Runs 58 minutes after every hour
+iRule.minute = 49;  // Runs 58 minutes after every hour
 
 var ij = schedule.scheduleJob(iRule, () => {
 	let now = new Date();

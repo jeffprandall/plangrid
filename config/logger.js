@@ -1,5 +1,3 @@
-"use strict";
-
 const winston = require('winston');
 
 let logger = new winston.Logger({
@@ -13,7 +11,7 @@ let logger = new winston.Logger({
 		new winston.transports.Console(),
 
 		//Log to file
-		new winston.transports.File({ filename: '../logs/plangrid_logs.logs'})
+		new winston.transports.File({ filename: 'logs/plangrid_logs.logs'})
 	]
 });
 

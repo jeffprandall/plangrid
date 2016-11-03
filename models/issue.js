@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     color: DataTypes.STRING,
     created_by: DataTypes.STRING,
     status: DataTypes.STRING,
+    due_at: DataTypes.DATE,
     created_at: DataTypes.DATE,
     updated_at: DataTypes.DATE,
     updatedAt: DataTypes.DATE,

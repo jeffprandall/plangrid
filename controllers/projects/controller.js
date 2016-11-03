@@ -74,3 +74,6 @@ exports.getProjects = () => {
 
 // Create a single Project
 exports.createProject = createProject;
+
+// Poll the api
+exports.getProjectsFromPlanGrid = getProjectsFromPlanGrid;
