@@ -4,6 +4,7 @@ const Logger = require('./config/logger');
 // Reference controllers
 const Projects = require('./controllers/projects/controller');
 const Issues = require('./controllers/issues/controller');
+const RFIs = require('./controllers/rfis/controller');
 
 // Start up notes
 console.log('plangrid-js is starting up', PROCESS.ENV)
@@ -26,4 +27,14 @@ var ij = schedule.scheduleJob(iRule, () => {
 	let now = new Date();
 	Logger.info('Issues scheduled task started: ', now);
 	Issues.getIssues();
+});
+
+// RFI Schedule to poll the API
+let rRule = new schedule.RecurrenceRule();
+rRule.minute = 50;  // Runs 58 minutes after every hour
+
+var ij = schedule.scheduleJob(rRule, () => {
+	let now = new Date();
+	Logger.info('RFIs scheduled task started: ', now);
+	RFIs.getRFIs();
 });

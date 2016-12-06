@@ -156,3 +156,14 @@ const iterateProjectsList = (projectIds) => {
 const getProjectIds = () => models.Project.findAll()
 	.then(projects => projects.map(p => p.dataValues.uid));
 
+// Main function to get all the rfis
+exports.getRFIs = () => {
+	getProjectIds()
+		.then(projectIds => iterateProjectsList(projectIds))
+		.then(rfis => { Logger.log(rfis);})
+		.catch((err) => {
+			Logger.error(err);
+			Logger.close();
+			return err;
+		});
+}
