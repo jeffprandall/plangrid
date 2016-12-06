@@ -5,6 +5,9 @@ const Logger = require('./config/logger');
 const Projects = require('./controllers/projects/controller');
 const Issues = require('./controllers/issues/controller');
 
+// Start up notes
+console.log('plangrid-js is starting up', PROCESS.ENV)
+
 // Project Schedule to poll the API
 let pRule = new schedule.RecurrenceRule();
 pRule.minute = 48;  // Runs 57 minutes after every hour

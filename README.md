@@ -59,3 +59,8 @@ NODE_ENV=production nodejs app.js
 ### Update project_id to your needs
 
 Additional field we use to track our projects internally.  All PlanGrid projects start with the job number as the prefix.  Update file controllers/projects line#19.  [Reference here to learn more about substring.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring)
+
+
+### Notes on the Docker configurations
+
+[Node Specifics](http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html)
