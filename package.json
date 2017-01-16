@@ -6,8 +6,7 @@
   "scripts": {
     "test": "npm run test-unit",
     "test-unit": "mocha test/unit/**.test.js --reporter spec",
-    "test-integration": "mocha test/integration/*.test.js  --reporter spec",
-    "test-packages": "nsp check"
+    "test-integration": "mocha test/integration/*.test.js  --reporter spec"
   },
   "author": "",
   "license": "ISC",
@@ -26,8 +25,8 @@
   "devDependencies": {
     "bluebird": "^3.4.6",
     "chai": "^3.5.0",
+    "gulp": "^3.9.1",
     "gulp-nsp": "^2.4.2",
-    "mocha": "^3.1.2",
-    "nsp": "^2.6.2"
+    "mocha": "^3.1.2"
   }
 }

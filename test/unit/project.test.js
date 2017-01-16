@@ -7,13 +7,13 @@ function randomString(length) {
 }
 
 // Sample Project to create
-var uid = randomString(36);
-var project_name = 'A1234 Test Project';
-var project_id = project_name.substring(0,5);
+let uid = randomString(36);
+let project_name = 'A1234 Test Project';
+let project_id = project_name.substring(0,5);
 
 describe('models/project test', function () {
   before(function () {
-      return require('../../models').sequelize.sync();
+    return require('../../models').sequelize.sync();
   });
 
   beforeEach(function () {
@@ -25,7 +25,7 @@ describe('models/project test', function () {
     return Bluebird.all([this.Project.destroy({ truncate: true })]);
   });
 
-  describe('create', function () {
+  describe('create a Project from the Model', function () {
     it('a single project', function () {
 
       return this.Project.create({ 
@@ -43,7 +43,7 @@ describe('models/project test', function () {
 
 describe('controllers/projects test', function () {
   before(function () {
-      return require('../../models').sequelize.sync();
+    return require('../../models').sequelize.sync();
   });
 
   beforeEach(function () {
@@ -55,7 +55,7 @@ describe('controllers/projects test', function () {
     return Bluebird.all([this.Project.destroy({ truncate: true })]);
   });
 
-  describe('creating', function () {
+  describe('create a project from the controller', function () {
     it('a single project', function () {
 
       return this.Project.createProject({ 

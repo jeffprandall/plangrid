@@ -10,12 +10,12 @@ gulp.task('nsp', function (cb) {
 
 // run tests
 gulp.task('mocha', function() {
-    return gulp.src(['tests/**/*.test.js'], { read: false })
-        .pipe(mocha({ reporter: 'list' }))
-        .on('error', gutil.log);
+  return gulp.src(['test/unit/*.test.js'], { read: false })
+    .pipe(mocha({ reporter: 'list' }))
+    .on('error', gutil.log);
 });
 
 // watch for changing files
 gulp.task('default', function() {
-      gulp.watch(['controllers/**', 'tests/**'], ['mocha', 'nsp']);
+  gulp.watch(['controllers/**', 'test/**/*.test.js'], ['mocha', 'nsp']);
 });

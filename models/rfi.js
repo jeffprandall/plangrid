@@ -1,13 +1,13 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-  var Issue = sequelize.define("Issue", {
+  var RFI = sequelize.define("RFI", {
     uid: {
       primaryKey: true,
       type: DataTypes.STRING,
       allowNull: false
     },
-    project_uid: DataTypes.STRING,
+    project_uid: DataTypes.STRING,    // PlanGrid Project ID
     number: DataTypes.INTEGER,        // PlanGrid RFI ID
     status: DataTypes.STRING,         // PlanGrid Status
     title: DataTypes.STRING,
@@ -27,15 +27,16 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        Issue.belongsTo(models.Project, {
+        RFI.belongsTo(models.Project, {
           foreignKey: {
             allowNull: false,
             name: 'uid'
-          }
+          },
+          constraints: false
         });
       }
     }
   });
 
-  return Issue;
+  return RFI;
 };

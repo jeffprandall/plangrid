@@ -9,7 +9,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     project_name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     project_id: {
       type: DataTypes.STRING
@@ -25,7 +26,15 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: {
             allowNull: false,
             name: 'uid'
-          }
+          },
+          constraints: false
+        }),
+        Project.hasMany(models.RFI, {
+          foreignKey: {
+            allowNull: false,
+            name: 'uid'
+          },
+          constraints: false
         });
       }
     }

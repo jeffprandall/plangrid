@@ -29,7 +29,8 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: {
             allowNull: false,
             name: 'uid'
-          }
+          },
+          constraints: false
         });
       }
     }
