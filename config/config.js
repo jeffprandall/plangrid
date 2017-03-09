@@ -19,9 +19,9 @@ module.exports = {
 	    "password": process.env.PROD_PASSWORD,
 	    "database": process.env.PROD_DATABASE,
 	    "host": process.env.PROD_HOST,
+	    "instanceName": process.env.PROD_INSTANCE,
 	    "dialect": "mssql",
 	    "port": 1433,
-	    "instanceName": "MSSQLSERVER",
 	    "logging": false
 	}
 };

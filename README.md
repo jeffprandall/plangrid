@@ -17,11 +17,13 @@ Using Postgres for local development testing and Microsoft SQL in production.
 
 ### Creating an .env file
 
-Create a new file called .env
+Create a new file in the root of the project called .env
+
+Create this on both Development and Production
 
 ```
 // PlanGid API Key
-PLANGRID_KEY='your plangrid api here'
+PLANGRID_KEY='<your plangrid api here>'
 
 // Development envirnoment setup
 DEV_USERNAME='<dev username>'
@@ -31,7 +33,8 @@ DEV_DATABASE='<Plangrid-dev>'
 // Production envirnoment
 PROD_USERNAME='<sql username created above>'
 PROD_PASSWORD='<sql password created above>'
-PROD_HOST='<hostname>'
+PROD_HOST='<sql server hostname>'
+PROD_INSTANCE='<sql server instance>'
 PROD_DATABASE='<Plangrid>'
 
 ```

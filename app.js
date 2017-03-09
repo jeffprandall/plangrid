@@ -6,9 +6,6 @@ const Projects = require('./controllers/projects/controller');
 const Issues = require('./controllers/issues/controller');
 const RFIs = require('./controllers/rfis/controller');
 
-// Start up notes
-//console.log(`plangrid-js is starting up, ${ NODE_ENV } || 'development'`)
-
 // Project Schedule to poll the API
 let ProjectRule = new schedule.RecurrenceRule();
 ProjectRule.minute = 30;  // Runs 57 minutes after every hour
@@ -38,3 +35,5 @@ var rj = schedule.scheduleJob(RFIRule, () => {
 	Logger.info('RFIs scheduled task started: ', now);
 	RFIs.getAllRFIs();
 });
+
+Logger.info(`Successfully started ${process.env.NODE_ENV} and waiting for jobs to run`)

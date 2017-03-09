@@ -108,6 +108,8 @@ const getIssues = (projectId) => {
 			headers: PG_config.plangrid.headers
 		};
 
+		console.log(options)
+
 		let req = https.request(options, (res) => {
 			let data = '';
 			
@@ -166,6 +168,3 @@ exports.getAllIssues = () => {
 			return err;
 		});
 }
-
-// Test function to get one Projects Issues
-exports.getIssuesForAProject = getIssues();
