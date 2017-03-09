@@ -1,6 +1,6 @@
 const models  = require('../../models');
 const https = require('https');
-const PG_config = require('../../config/config.json');
+const PG_config = require('../../config/config');
 const moment = require('moment');
 const tz = require('moment-timezone');
 const Logger = require('../../config/logger');
@@ -157,7 +157,7 @@ const getProjectIds = () => models.Project.findAll()
 	.then(projects => projects.map(p => p.dataValues.uid));
 
 // Main function to get all the rfis
-exports.getRFIs = () => {
+exports.getAllRFIs = () => {
 	getProjectIds()
 		.then(projectIds => iterateProjectsList(projectIds))
 		.then(rfis => { Logger.log(rfis);})

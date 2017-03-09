@@ -1,6 +1,6 @@
 const models  = require('../../models');
 const https = require('https');
-const PG_config = require('../../config/config.json');
+const PG_config = require('../../config/config');
 const moment = require('moment');
 const tz = require('moment-timezone');
 const Logger = require('../../config/logger');

@@ -11,9 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "gulp": "^3.9.1",
-    "gulp-mocha": "^3.0.1",
-    "gulp-util": "^3.0.7",
+    "dotenv": "^4.0.0",
     "moment": "^2.15.1",
     "moment-timezone": "^0.5.5",
     "node-schedule": "^1.2.0",
@@ -26,7 +24,9 @@
     "bluebird": "^3.4.6",
     "chai": "^3.5.0",
     "gulp": "^3.9.1",
+    "gulp-mocha": "^3.0.1",
     "gulp-nsp": "^2.4.2",
+    "gulp-util": "^3.0.7",
     "mocha": "^3.1.2"
   }
 }

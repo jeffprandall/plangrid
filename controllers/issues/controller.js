@@ -1,6 +1,6 @@
 const models  = require('../../models');
 const https = require('https');
-const PG_config = require('../../config/config.json');
+const PG_config = require('../../config/config');
 const moment = require('moment');
 const tz = require('moment-timezone');
 const Logger = require('../../config/logger');
@@ -155,9 +155,8 @@ const iterateProjectsList = (projectIds) => {
 const getProjectIds = () => models.Project.findAll()
 	.then(projects => projects.map(p => p.dataValues.uid));
 
-
 // Main function to get all the issues
-exports.getIssues = () => {
+exports.getAllIssues = () => {
 	getProjectIds()
 		.then(projectIds => iterateProjectsList(projectIds))
 		.then(issues => { Logger.log(issues);})
@@ -167,3 +166,6 @@ exports.getIssues = () => {
 			return err;
 		});
 }
+
+// Test function to get one Projects Issues
+exports.getIssuesForAProject = getIssues();

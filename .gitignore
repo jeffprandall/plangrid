@@ -2,6 +2,7 @@
 views/.DS_Store
 .DS_Store
 .eslintrc.js
+.env
 
 # Log Files
 *.log
