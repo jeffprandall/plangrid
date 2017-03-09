@@ -15,35 +15,25 @@ Using Postgres for local development testing and Microsoft SQL in production.
 1. Create a new database on your MSSQL Server called Plangrid
 2. Create a new SQL user and make it the dbo for both databases.
 
-### Update the config file
+### Creating an .env file
 
-Update the json file in config/config-sample.json with your appropriate information then rename to config.json.
+Create a new file called .env
 
 ```
-{
-	"plangrid": {
-		"url": "io.plangrid.com",
-		"key": "<YOUR PLANGRID API KEY HERE>",
-		"headers": { "Accept": "application/vnd.plangrid+json; version=1" }
-	},
-	"development": {
-	    "username": "<USERNAME>",
-	    "password": "<PASSWORD>",
-	    "database": "Plangrid-dev",
-	    "host": "localhost",
-	    "dialect": "postgres"
-	},
-	"production": {
-	    "username": "<SQL USERNAME>",
-	    "password": "<SQL PASSWORD>",
-	    "database": "Plangrid",
-	    "host": "<SQL HOST NAME>",
-	    "dialect": "mssql",
-	    "port": 1433,
-	    "instanceName": "<INSTANCE NAME>",
-	    "logging": false
-	}
-}
+// PlanGid API Key
+PLANGRID_KEY='your plangrid api here'
+
+// Development envirnoment setup
+DEV_USERNAME='<dev username>'
+DEV_PASSWORD='<dev password>'
+DEV_DATABASE='<Plangrid-dev>'
+
+// Production envirnoment
+PROD_USERNAME='<sql username created above>'
+PROD_PASSWORD='<sql password created above>'
+PROD_HOST='<hostname>'
+PROD_DATABASE='<Plangrid>'
+
 ```
 
 ### Run migration to prep the database
