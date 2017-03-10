@@ -13,38 +13,32 @@ function createRFI(project, rfi) {
 	let now = moment();
 	now.tz('America/Los_Angeles').format();
 
-	// check and convert to string
-	let title = rfi.title;
-	let strTitle = (title === null ? null : title.toString())
-
-	let description = rfi.description;
-	let strDescription = (description === null ? null : description.toString())
-
-	return models.rfi
+	return models.RFI
 		.find({ where: { uid: rfi.uid }})
 		.then((found) => {
+
+			// check and convert to string
+			let title = rfi.title;
+			let strTitle = (title === null ? null : title.toString())
 			
 			// Check if rfi is assigned to anyone
-			let assigned_to = (rfi.assigned_to != null ? rfi.assigned_to[0].email : null);
+			let assigned_to = rfi.assigned_to
+			assigned_to = (assigned_to.length <= 0 ? null : rfi.assigned_to[0].email)
 
 			// rfi not found so need to create
 			if (!found) {
-				return models.rfi
+				return models.RFI
 					.create({
 						uid: rfi.uid,
 						project_uid: project,
 						number: rfi.number,
-						status: rfi.status,
+						status: rfi.status.label,
 						title: strTitle,
-						locked: rfi.locked,
-						question: rfi.question,
-						answer: rfi.answer,
-						comments: rfi.comments,
 						assigned_to: assigned_to,
 						sent_date: rfi.sent_date,
 						due_date: rfi.due_date,
 						created_at: rfi.created_at,
-						created_by: rfi.created_by,
+						created_by: rfi.created_by.email,
 						updated_at: rfi.updated_at,
 						updated_by: rfi.updated_by,
 						updatedAt: now,
@@ -59,19 +53,15 @@ function createRFI(project, rfi) {
 			} else {
 			
 			// rfi found so need to update
-				return models.rfi
+				return models.RFI
 					.update({
-						status: rfi.status,
+						status: rfi.status.label,
 						title: strTitle,
-						locked: rfi.locked,
-						question: rfi.question,
-						answer: rfi.answer,
-						comments: rfi.comments,
 						assigned_to: assigned_to,
 						sent_date: rfi.sent_date,
 						due_date: rfi.due_date,
 						updated_at: rfi.updated_at,
-						updated_by: rfi.updated_by,
+						updated_by: rfi.updated_by.email,
 						updatedAt: now,
 						createdAt: now
 					},

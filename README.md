@@ -1,18 +1,17 @@
-## PlanGrid data to local database
-
-Using Postgres for local development testing and Microsoft SQL in production.
-
-
-## Prerequisites
+### Prerequisites
 
 * nodejs > 6.0
 * ```npm install -g tedious sequelize sequelize-cli```
 
+### PlanGrid data to local database
+
+Using Postgres for local development testing and Microsoft SQL in production.
+
 ### Setup the Postgres Development database
 1. Create a new Postgres database on your local machine called Plangrid-dev and make the Owner the current user.
 
-### Setup the MSSQL Production database
-1. Create a new database on your MSSQL Server called Plangrid
+## Setup the MSSQL Production database
+1. Create a new database on your MSSQL Server called Plangrid or use your existing data mart
 2. Create a new SQL user and make it the dbo for both databases.
 
 ### Creating an .env file
@@ -53,7 +52,8 @@ NODE_ENV=production nodejs app.js
 
 Additional field we use to track our projects internally.  All PlanGrid projects start with the job number as the prefix.  Update file controllers/projects line#19.  [Reference here to learn more about substring.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring)
 
-
-### Notes on the Docker configurations
-
-[Node Specifics](http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html)
+### Action Items
+Need a way to alert/monitor the service
+*  winston-mail
+*  winston-syslog
+*  http listening on a port that I can poll with a third party service

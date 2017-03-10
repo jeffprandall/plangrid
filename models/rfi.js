@@ -11,10 +11,6 @@ module.exports = function(sequelize, DataTypes) {
     number: DataTypes.INTEGER,        // PlanGrid RFI ID
     status: DataTypes.STRING,         // PlanGrid Status
     title: DataTypes.STRING,
-    locked: DataTypes.STRING,
-    question: DataTypes.STRING(1000),
-    answer: DataTypes.STRING(1000),
-    comments: DataTypes.STRING(1000),
     assigned_to: DataTypes.STRING,
     sent_date: DataTypes.DATE,
     due_date: DataTypes.DATE,

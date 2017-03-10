@@ -21,7 +21,7 @@ module.exports = {
     "host": process.env.PROD_HOST,
     "instanceName": process.env.PROD_INSTANCE,
     "dialect": "mssql",
-    "port": 1433,
-    "logging": false
+    "port": 1433
+    //"logging": false
 	}
 };
