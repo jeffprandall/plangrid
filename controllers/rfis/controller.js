@@ -13,11 +13,12 @@ function createRFI(project, rfi) {
 	let now = moment();
 	now.tz('America/Los_Angeles').format();
 
-	// convert to string
+	// check and convert to string
 	let title = rfi.title;
-	let strTitle = title.toString();
+	let strTitle = (title === null ? null : title.toString())
+
 	let description = rfi.description;
-	let strDescription = description.toString();
+	let strDescription = (description === null ? null : description.toString())
 
 	return models.rfi
 		.find({ where: { uid: rfi.uid }})
@@ -118,7 +119,7 @@ const getRFIs = (projectId) => {
 				let jsonRFIs = JSON.parse(data)
 
 				// check if there are any issues
-				if (Object.keys(jsonRFIs.data).length === 0) {
+				if ( jsonRFIs.data === null || jsonRFIs.data === undefined || Object.keys(jsonRFIs.data).length === 0 ) {
 					resolve(uid, jsonRFIs);
 				} else {
 					iterateRFIList(uid, jsonRFIs);

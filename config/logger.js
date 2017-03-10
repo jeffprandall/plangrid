@@ -1,4 +1,5 @@
 const winston = require('winston');
+require('winston-mail').Mail;
 
 let logger = new winston.Logger({
 	level: 'debug',
@@ -10,7 +11,7 @@ let logger = new winston.Logger({
 		// Log to console
 		new winston.transports.Console(),
 
-		//Log to file
+		// Log to file
 		new winston.transports.File({ filename: 'logs/plangrid_logs.logs'})
 	]
 });

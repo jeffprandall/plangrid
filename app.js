@@ -8,7 +8,7 @@ const RFIs = require('./controllers/rfis/controller');
 
 // Project Schedule to poll the API
 let ProjectRule = new schedule.RecurrenceRule();
-ProjectRule.minute = 30;  // Runs 57 minutes after every hour
+ProjectRule.minute = 25;  // Runs 05 minutes after every hour
 
 var pj = schedule.scheduleJob(ProjectRule, () => {
 	let now = new Date();
@@ -18,7 +18,7 @@ var pj = schedule.scheduleJob(ProjectRule, () => {
 
 // Issue Schedule to poll the API
 let IssueRule = new schedule.RecurrenceRule();
-IssueRule.minute = 32;  // Runs 58 minutes after every hour
+IssueRule.minute = 27;  // Runs 07 minutes after every hour
 
 var ij = schedule.scheduleJob(IssueRule, () => {
 	let now = new Date();
@@ -28,7 +28,7 @@ var ij = schedule.scheduleJob(IssueRule, () => {
 
 // RFI Schedule to poll the API
 let RFIRule = new schedule.RecurrenceRule();
-RFIRule.minute = 34;  // Runs 58 minutes after every hour
+RFIRule.minute = 36;  // Runs 09 minutes after every hour
 
 var rj = schedule.scheduleJob(RFIRule, () => {
 	let now = new Date();

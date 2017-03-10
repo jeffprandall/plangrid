@@ -15,6 +15,7 @@ module.exports = {
       color: Sequelize.STRING,
       created_by: Sequelize.STRING,
       status: Sequelize.STRING,
+      due_at: Sequelize.DATE,
       created_at: Sequelize.DATE, // date PG issue was created
       updated_at: Sequelize.DATE, // date PG issue was updated
       updatedAt: Sequelize.DATE,  // date this record was updated

@@ -108,8 +108,6 @@ const getIssues = (projectId) => {
 			headers: PG_config.plangrid.headers
 		};
 
-		console.log(options)
-
 		let req = https.request(options, (res) => {
 			let data = '';
 			
@@ -119,16 +117,14 @@ const getIssues = (projectId) => {
 				let jsonIssues = JSON.parse(data)
 
 				// check if there are any issues
-				if (Object.keys(jsonIssues.data).length === 0) {
+				if ( jsonIssues.data === null || jsonIssues.data === undefined || Object.keys(jsonIssues.data).length === 0 ) {
 					resolve(uid, jsonIssues);
 				} else {
 					iterateIssueList(uid, jsonIssues);
 					resolve();
 				}
-
 			});
 		});
-
 		req.on('error', (e) => {
 			Logger.error(e.message);
 			Logger.close();
