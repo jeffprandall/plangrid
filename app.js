@@ -1,5 +1,9 @@
 const schedule = require('node-schedule');
 const Logger = require('./config/logger');
+const http = require('http')
+
+// Set ENV variables
+const env = process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
 
 // Reference controllers
 const Projects = require('./controllers/projects/controller');
@@ -36,5 +40,13 @@ var rj = schedule.scheduleJob(RFIRule, () => {
 	RFIs.getAllRFIs();
 });
 
-Logger.error('Test error message levels')
-Logger.info(`Successfully started ${process.env.NODE_ENV || 'development'} and waiting for jobs to run`)
+// Listening - primarily for PM2 to monitor status of application
+const server = http.createServer((req, res) => {
+	res.writeHead(200, {'Content-Type': 'text/plain'})
+	res.write(JSON.stringify(req.headers))
+	res.end(`${ env } server is running`)
+})
+
+server.listen(8080);
+
+Logger.info(`Successfully started ${ env } and waiting for jobs to run`)
