@@ -36,4 +36,5 @@ var rj = schedule.scheduleJob(RFIRule, () => {
 	RFIs.getAllRFIs();
 });
 
-Logger.info(`Successfully started ${process.env.NODE_ENV} and waiting for jobs to run`)
+Logger.error('Test error message levels')
+Logger.info(`Successfully started ${process.env.NODE_ENV || 'development'} and waiting for jobs to run`)
