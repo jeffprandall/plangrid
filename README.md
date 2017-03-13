@@ -1,20 +1,9 @@
-### Prerequisites
+## Prerequisites
 
 * nodejs > 6.0
 * ```npm install -g tedious sequelize sequelize-cli```
 
-### PlanGrid data to local database
-
-Using Postgres for local development testing and Microsoft SQL in production.
-
-### Setup the Postgres Development database
-1. Create a new Postgres database on your local machine called Plangrid-dev and make the Owner the current user.
-
-## Setup the MSSQL Production database
-1. Create a new database on your MSSQL Server called Plangrid or use your existing data mart
-2. Create a new SQL user and make it the dbo for both databases.
-
-### Creating an .env file
+## Creating an .env file
 
 Create a new file in the root of the project called .env
 
@@ -38,11 +27,21 @@ PROD_DATABASE='<Plangrid>'
 
 ```
 
-### Run migration to prep the database
-``` sequelize db:migrate --env=production ```
+## Database Setup
 
-(optional)
+Using Postgres for local development testing and Microsoft SQL in production.
+
+### Setup the Postgres Development database
+1. Create a new Postgres database on your local machine called Plangrid-dev and make the Owner the current user.
+
+### Setup the MSSQL Production database
+1. Create a new database on your MSSQL Server called Plangrid or use your existing data mart
+2. Create a new SQL user and make it the dbo for both databases.
+
+
+### Run migration to prep the database
 ``` sequelize db:migrate --env=development ```
+``` sequelize db:migrate --env=production ```
 
 
 ### Run in Production
@@ -54,6 +53,7 @@ Additional field we use to track our projects internally.  All PlanGrid projects
 
 ### Action Items
 Need a way to alert/monitor the service
-*  winston-mail
-*  winston-syslog
-*  http listening on a port that I can poll with a third party service
+
+* winston-mail
+* winston-syslog
+* http listening on a port that I can poll with a third party service

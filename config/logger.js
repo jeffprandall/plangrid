@@ -1,5 +1,4 @@
 const winston = require('winston');
-require('winston-mail').Mail;
 
 let logger = new winston.Logger({
 	level: 'debug',
