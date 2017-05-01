@@ -8,20 +8,25 @@ module.exports = {
 		"rate_limit": "2000"
 	},
 	"development": {
-    "username": process.env.DEV_USERNAME,
-    "password": process.env.DEV_PASSWORD,
-    "database": process.env.DEV_DATABASE,
-    "host": "localhost",
-    "dialect": "postgres"
+        "username": process.env.DEV_USERNAME,
+        "password": process.env.DEV_PASSWORD,
+        "database": process.env.DEV_DATABASE,
+        "host": "localhost",
+        "dialect": "postgres"
 	},
 	"production": {
-    "username": process.env.PROD_USERNAME,
-    "password": process.env.PROD_PASSWORD,
-    "database": process.env.PROD_DATABASE,
-    "host": process.env.PROD_HOST,
-    "instanceName": process.env.PROD_INSTANCE,
-    "dialect": "mssql",
-    "port": 1433
+        "username": process.env.PROD_USERNAME,
+        "password": process.env.PROD_PASSWORD,
+        "database": process.env.PROD_DATABASE,
+        "host": process.env.PROD_HOST,
+        "instanceName": process.env.PROD_INSTANCE,
+        "dialect": "mssql",
+        "port": 1433,
+        "pool":{
+            "min": 1,
+            "max": 5,
+            "idle": 10000
+        }
     //"logging": false
 	}
 };

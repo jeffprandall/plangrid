@@ -25,6 +25,9 @@ PROD_HOST='<sql server hostname>'
 PROD_INSTANCE='<sql server instance>'
 PROD_DATABASE='<Plangrid>'
 
+// Syslog Server
+SYSLOG_SERVER='<ip address or hostname>'
+
 ```
 
 ## Database Setup
@@ -45,15 +48,12 @@ Using Postgres for local development testing and Microsoft SQL in production.
 
 
 ### Run in Production
-NODE_ENV=production nodejs app.js 
+NODE_ENV=production nodejs app.js
+
+or (if using PM2)
+
+NODE_ENV=production pm2 start app.js
 
 ### Update project_id to your needs
 
 Additional field we use to track our projects internally.  All PlanGrid projects start with the job number as the prefix.  Update file controllers/projects line#19.  [Reference here to learn more about substring.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring)
-
-### Action Items
-Need a way to alert/monitor the service
-
-* winston-mail
-* winston-syslog
-* http listening on a port that I can poll with a third party service
